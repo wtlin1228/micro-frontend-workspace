@@ -1,12 +1,7 @@
 import './App.css';
-import Provider from 'provider';
 
 const App = () => {
-  return (
-    <div className="content">
-      <Provider />
-    </div>
-  );
+  return <div className="content">App</div>;
 };
 
 export default App;

@@ -1,7 +1,7 @@
 import { createModuleFederationConfig } from '@module-federation/rsbuild-plugin';
 
 export default createModuleFederationConfig({
-  name: 'app-mf-1',
+  name: 'mf1',
   exposes: {
     '.': './src/components/ProviderComponent.tsx',
   },
@@ -9,4 +9,5 @@ export default createModuleFederationConfig({
     react: { singleton: true },
     'react-dom': { singleton: true },
   },
+  getPublicPath: `function() { return "http://localhost:4001/"; }`,
 });

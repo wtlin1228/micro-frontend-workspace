@@ -6,6 +6,11 @@
   "license": "MIT",
   "packageManager": "pnpm@10.15.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:apps": "pnpm --filter './packages/app-*' --parallel run dev",
+    "build:apps": "pnpm --filter './packages/app-*' --parallel run build",
+    "preview:apps": "pnpm --filter './packages/app-*' --parallel run preview",
+    "dev:host": "pnpm --filter=host run dev",
+    "build:host": "pnpm --filter=host run build",
+    "preview:host": "pnpm --filter=host run preview"
   }
 }

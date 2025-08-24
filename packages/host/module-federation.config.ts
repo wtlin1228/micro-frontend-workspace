@@ -3,7 +3,8 @@ import { createModuleFederationConfig } from '@module-federation/rsbuild-plugin'
 export default createModuleFederationConfig({
   name: 'host',
   remotes: {
-    'provider': 'rslib_provider@https://unpkg.com/module-federation-rslib-provider@latest/dist/mf/mf-manifest.json',
+    mf1: 'mf1@http://localhost:4001/mf-manifest.json',
+    mf2: 'mf2@http://localhost:4002/mf-manifest.json',
   },
   shareStrategy: 'loaded-first',
   shared: {
