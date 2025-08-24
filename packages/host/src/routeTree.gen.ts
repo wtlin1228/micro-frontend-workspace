@@ -11,6 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppsIndexRouteImport } from './routes/apps/index'
+import { Route as AppsQiankunIndexRouteImport } from './routes/apps/qiankun/index'
+import { Route as AppsQiankunAppIdRouteImport } from './routes/apps/qiankun/$appId'
+import { Route as AppsQiankunAppIdSplatRouteImport } from './routes/apps/qiankun/$appId/$'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -22,31 +26,85 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppsIndexRoute = AppsIndexRouteImport.update({
+  id: '/apps/',
+  path: '/apps/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsQiankunIndexRoute = AppsQiankunIndexRouteImport.update({
+  id: '/apps/qiankun/',
+  path: '/apps/qiankun/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsQiankunAppIdRoute = AppsQiankunAppIdRouteImport.update({
+  id: '/apps/qiankun/$appId',
+  path: '/apps/qiankun/$appId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsQiankunAppIdSplatRoute = AppsQiankunAppIdSplatRouteImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => AppsQiankunAppIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/apps': typeof AppsIndexRoute
+  '/apps/qiankun/$appId': typeof AppsQiankunAppIdRouteWithChildren
+  '/apps/qiankun': typeof AppsQiankunIndexRoute
+  '/apps/qiankun/$appId/$': typeof AppsQiankunAppIdSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/apps': typeof AppsIndexRoute
+  '/apps/qiankun/$appId': typeof AppsQiankunAppIdRouteWithChildren
+  '/apps/qiankun': typeof AppsQiankunIndexRoute
+  '/apps/qiankun/$appId/$': typeof AppsQiankunAppIdSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/apps/': typeof AppsIndexRoute
+  '/apps/qiankun/$appId': typeof AppsQiankunAppIdRouteWithChildren
+  '/apps/qiankun/': typeof AppsQiankunIndexRoute
+  '/apps/qiankun/$appId/$': typeof AppsQiankunAppIdSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/apps'
+    | '/apps/qiankun/$appId'
+    | '/apps/qiankun'
+    | '/apps/qiankun/$appId/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to:
+    | '/'
+    | '/about'
+    | '/apps'
+    | '/apps/qiankun/$appId'
+    | '/apps/qiankun'
+    | '/apps/qiankun/$appId/$'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/apps/'
+    | '/apps/qiankun/$appId'
+    | '/apps/qiankun/'
+    | '/apps/qiankun/$appId/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AppsIndexRoute: typeof AppsIndexRoute
+  AppsQiankunAppIdRoute: typeof AppsQiankunAppIdRouteWithChildren
+  AppsQiankunIndexRoute: typeof AppsQiankunIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +123,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apps/': {
+      id: '/apps/'
+      path: '/apps'
+      fullPath: '/apps'
+      preLoaderRoute: typeof AppsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/qiankun/': {
+      id: '/apps/qiankun/'
+      path: '/apps/qiankun'
+      fullPath: '/apps/qiankun'
+      preLoaderRoute: typeof AppsQiankunIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/qiankun/$appId': {
+      id: '/apps/qiankun/$appId'
+      path: '/apps/qiankun/$appId'
+      fullPath: '/apps/qiankun/$appId'
+      preLoaderRoute: typeof AppsQiankunAppIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/qiankun/$appId/$': {
+      id: '/apps/qiankun/$appId/$'
+      path: '/$'
+      fullPath: '/apps/qiankun/$appId/$'
+      preLoaderRoute: typeof AppsQiankunAppIdSplatRouteImport
+      parentRoute: typeof AppsQiankunAppIdRoute
+    }
   }
 }
+
+interface AppsQiankunAppIdRouteChildren {
+  AppsQiankunAppIdSplatRoute: typeof AppsQiankunAppIdSplatRoute
+}
+
+const AppsQiankunAppIdRouteChildren: AppsQiankunAppIdRouteChildren = {
+  AppsQiankunAppIdSplatRoute: AppsQiankunAppIdSplatRoute,
+}
+
+const AppsQiankunAppIdRouteWithChildren =
+  AppsQiankunAppIdRoute._addFileChildren(AppsQiankunAppIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AppsIndexRoute: AppsIndexRoute,
+  AppsQiankunAppIdRoute: AppsQiankunAppIdRouteWithChildren,
+  AppsQiankunIndexRoute: AppsQiankunIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
