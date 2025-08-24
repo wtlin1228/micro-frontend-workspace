@@ -1,0 +1,11 @@
+{
+  "name": "@mfw/monorepo",
+  "version": "1.0.0",
+  "description": "a micro-frontend workspace architected by qiankun and module federation",
+  "author": "WEI TANG LIN (wtlin1228@gmail.com)",
+  "license": "MIT",
+  "packageManager": "pnpm@10.15.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
