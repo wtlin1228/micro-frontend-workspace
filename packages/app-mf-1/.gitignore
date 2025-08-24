@@ -23,3 +23,6 @@ Thumbs.db
 .vscode/
 .vscode/*
 !.vscode/extensions.json
+
+# Tanstack Router
+.tanstack/

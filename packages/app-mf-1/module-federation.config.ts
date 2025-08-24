@@ -3,7 +3,7 @@ import { createModuleFederationConfig } from '@module-federation/rsbuild-plugin'
 export default createModuleFederationConfig({
   name: 'mf1',
   exposes: {
-    '.': './src/components/ProviderComponent.tsx',
+    '.': './src/exposed.tsx',
   },
   shared: {
     react: { singleton: true },
