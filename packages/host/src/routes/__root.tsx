@@ -17,6 +17,8 @@ export const Route = createRootRoute({
         <Link to="/apps/qiankun/$appId" params={{ appId: 'app2' }}>
           Qiankun 2
         </Link>
+        <Link to="/apps/mf/app1">MF 1</Link>
+        <Link to="/apps/mf/app1">MF 2</Link>
       </div>
       <hr />
       <Outlet />
