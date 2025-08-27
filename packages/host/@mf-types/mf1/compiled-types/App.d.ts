@@ -1,1 +1,2 @@
-export declare const App: () => import("react/jsx-runtime").JSX.Element;
+import type { HostProps } from '@mfw/app-interface';
+export declare const getRootComponent: (props: HostProps) => () => import("react/jsx-runtime").JSX.Element;

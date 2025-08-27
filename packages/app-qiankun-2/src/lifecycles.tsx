@@ -1,6 +1,7 @@
+import { type HostProps } from '@mfw/app-interface';
 import { StrictMode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import App from './App';
+import { getRootComponent } from './App';
 
 let root: Root | null = null;
 
@@ -18,7 +19,7 @@ export async function bootstrap(props: any) {
  * The mount method is called every time the application enters,
  * usually we trigger the application's rendering method here.
  */
-export async function mount(props: { container?: HTMLElement }) {
+export async function mount(props: HostProps & { container?: HTMLElement }) {
   console.log('qiankun2::mount', props);
 
   if (!root) {
@@ -28,9 +29,11 @@ export async function mount(props: { container?: HTMLElement }) {
     root = createRoot(container!);
   }
 
+  const RootComponent = getRootComponent(props);
+
   root.render(
     <StrictMode>
-      <App />
+      <RootComponent />
     </StrictMode>,
   );
 }

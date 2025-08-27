@@ -1,8 +1,12 @@
+import type { HostProps } from '@mfw/app-interface';
 import { RouterProvider } from '@tanstack/react-router';
-import { router } from './router';
+import { getRouter, type RouterType } from './router';
 
-const App = () => {
-  return <RouterProvider router={router} />;
+export const getRootComponent = (props: HostProps) => {
+  const router = getRouter({ basepath: props.basepath });
+  return () => <App router={router} />;
 };
 
-export default App;
+const App = ({ router }: { router: RouterType }) => {
+  return <RouterProvider router={router} />;
+};

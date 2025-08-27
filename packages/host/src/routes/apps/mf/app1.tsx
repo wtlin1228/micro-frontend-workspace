@@ -1,10 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { App } from 'mf1';
+import { getRootComponent } from 'mf1';
+
+const RootComponent = getRootComponent({ basepath: '/apps/mf/app1' });
 
 export const Route = createFileRoute('/apps/mf/app1')({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <App />;
+  return <RootComponent />;
 }

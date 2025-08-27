@@ -20,6 +20,9 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@mfw/app-interface':
+        specifier: workspace:^
+        version: link:../lib-app-interface
       '@module-federation/rsbuild-plugin':
         specifier: ^0.18.3
         version: 0.18.3(@rsbuild/core@1.4.15)(@rspack/core@1.5.0-beta.1(@swc/helpers@0.5.17))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)(webpack@5.101.3)
@@ -54,6 +57,9 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@mfw/app-interface':
+        specifier: workspace:^
+        version: link:../lib-app-interface
       '@module-federation/rsbuild-plugin':
         specifier: ^0.18.3
         version: 0.18.3(@rsbuild/core@1.4.15)(@rspack/core@1.5.0-beta.1(@swc/helpers@0.5.17))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)(webpack@5.101.3)
@@ -91,6 +97,9 @@ importers:
       '@eslint/js':
         specifier: ^9.30.0
         version: 9.34.0
+      '@mfw/app-interface':
+        specifier: workspace:^
+        version: link:../lib-app-interface
       '@rsbuild/core':
         specifier: ^1.4.13
         version: 1.4.15
@@ -143,6 +152,9 @@ importers:
       '@eslint/js':
         specifier: ^9.30.0
         version: 9.34.0
+      '@mfw/app-interface':
+        specifier: workspace:^
+        version: link:../lib-app-interface
       '@rsbuild/core':
         specifier: ^1.4.13
         version: 1.4.15
@@ -195,6 +207,9 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@mfw/app-interface':
+        specifier: workspace:^
+        version: link:../lib-app-interface
       '@module-federation/rsbuild-plugin':
         specifier: ^0.18.3
         version: 0.18.3(@rsbuild/core@1.4.15)(@rspack/core@1.5.0-beta.1(@swc/helpers@0.5.17))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)(webpack@5.101.3)

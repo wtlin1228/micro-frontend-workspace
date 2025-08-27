@@ -1,3 +1,4 @@
+import { type HostProps } from '@mfw/app-interface';
 import { registerMicroApps, RegistrableApp, start } from 'qiankun';
 import { useEffect, useMemo } from 'react';
 
@@ -5,7 +6,7 @@ export const QIANKUN_CONTAINER = 'qiankun-container';
 
 export const useRegisterQiankunApps = () => {
   const registerableApps = useMemo(() => {
-    const apps: RegistrableApp<{}>[] = [
+    const apps: RegistrableApp<HostProps>[] = [
       {
         name: 'app-qiankun-1',
         entry: 'http://localhost:3001/index.html',
@@ -14,7 +15,9 @@ export const useRegisterQiankunApps = () => {
           console.log('host::qiankun::loader::qiankun-1', loading);
         },
         activeRule: '/apps/qiankun/app1',
-        props: {},
+        props: {
+          basepath: '/apps/qiankun/app1',
+        },
       },
       {
         name: 'app-qiankun-2',
@@ -24,7 +27,9 @@ export const useRegisterQiankunApps = () => {
           console.log('host::qiankun::loader::qiankun-2', loading);
         },
         activeRule: '/apps/qiankun/app2',
-        props: {},
+        props: {
+          basepath: '/apps/qiankun/app2',
+        },
       },
     ];
 

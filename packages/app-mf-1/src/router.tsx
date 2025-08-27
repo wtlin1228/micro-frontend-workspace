@@ -1,10 +1,16 @@
 import { createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 
-export const router = createRouter({ routeTree, basepath: 'apps/mf/app1' });
+export const getRouter = ({ basepath }: { basepath: string }) =>
+  createRouter({
+    routeTree,
+    basepath,
+  });
+
+export type RouterType = ReturnType<typeof getRouter>;
 
 declare module '@tanstack/react-router' {
   interface Register {
-    router: typeof router;
+    router: ReturnType<typeof getRouter>;
   }
 }
