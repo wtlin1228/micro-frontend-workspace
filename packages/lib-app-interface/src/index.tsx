@@ -1,4 +1,1 @@
-export { Button } from './Button';
-
-export { type HostProps } from './types';
-export { defaultHostProps } from './constants';
+export { type HostProps, defaultHostProps } from './host-props';
