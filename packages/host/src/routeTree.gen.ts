@@ -9,17 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AppsRouteImport } from './routes/apps'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppsIndexRouteImport } from './routes/apps/index'
-import { Route as AppsQiankunIndexRouteImport } from './routes/apps/qiankun/index'
-import { Route as AppsQiankunAppIdRouteImport } from './routes/apps/qiankun/$appId'
-import { Route as AppsMfApp2RouteImport } from './routes/apps/mf/app2'
-import { Route as AppsMfApp1RouteImport } from './routes/apps/mf/app1'
-import { Route as AppsQiankunAppIdSplatRouteImport } from './routes/apps/qiankun/$appId/$'
-import { Route as AppsMfApp2SplatRouteImport } from './routes/apps/mf/app2/$'
-import { Route as AppsMfApp1SplatRouteImport } from './routes/apps/mf/app1/$'
+import { Route as AppsBaseRouteRouteImport } from './routes/apps.$baseRoute'
+import { Route as AppsBaseRouteSplatRouteImport } from './routes/apps.$baseRoute.$'
 
+const AppsRoute = AppsRouteImport.update({
+  id: '/apps',
+  path: '/apps',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -30,83 +30,38 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppsIndexRoute = AppsIndexRouteImport.update({
-  id: '/apps/',
-  path: '/apps/',
-  getParentRoute: () => rootRouteImport,
+const AppsBaseRouteRoute = AppsBaseRouteRouteImport.update({
+  id: '/$baseRoute',
+  path: '/$baseRoute',
+  getParentRoute: () => AppsRoute,
 } as any)
-const AppsQiankunIndexRoute = AppsQiankunIndexRouteImport.update({
-  id: '/apps/qiankun/',
-  path: '/apps/qiankun/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppsQiankunAppIdRoute = AppsQiankunAppIdRouteImport.update({
-  id: '/apps/qiankun/$appId',
-  path: '/apps/qiankun/$appId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppsMfApp2Route = AppsMfApp2RouteImport.update({
-  id: '/apps/mf/app2',
-  path: '/apps/mf/app2',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppsMfApp1Route = AppsMfApp1RouteImport.update({
-  id: '/apps/mf/app1',
-  path: '/apps/mf/app1',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AppsQiankunAppIdSplatRoute = AppsQiankunAppIdSplatRouteImport.update({
+const AppsBaseRouteSplatRoute = AppsBaseRouteSplatRouteImport.update({
   id: '/$',
   path: '/$',
-  getParentRoute: () => AppsQiankunAppIdRoute,
-} as any)
-const AppsMfApp2SplatRoute = AppsMfApp2SplatRouteImport.update({
-  id: '/$',
-  path: '/$',
-  getParentRoute: () => AppsMfApp2Route,
-} as any)
-const AppsMfApp1SplatRoute = AppsMfApp1SplatRouteImport.update({
-  id: '/$',
-  path: '/$',
-  getParentRoute: () => AppsMfApp1Route,
+  getParentRoute: () => AppsBaseRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/apps': typeof AppsIndexRoute
-  '/apps/mf/app1': typeof AppsMfApp1RouteWithChildren
-  '/apps/mf/app2': typeof AppsMfApp2RouteWithChildren
-  '/apps/qiankun/$appId': typeof AppsQiankunAppIdRouteWithChildren
-  '/apps/qiankun': typeof AppsQiankunIndexRoute
-  '/apps/mf/app1/$': typeof AppsMfApp1SplatRoute
-  '/apps/mf/app2/$': typeof AppsMfApp2SplatRoute
-  '/apps/qiankun/$appId/$': typeof AppsQiankunAppIdSplatRoute
+  '/apps': typeof AppsRouteWithChildren
+  '/apps/$baseRoute': typeof AppsBaseRouteRouteWithChildren
+  '/apps/$baseRoute/$': typeof AppsBaseRouteSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/apps': typeof AppsIndexRoute
-  '/apps/mf/app1': typeof AppsMfApp1RouteWithChildren
-  '/apps/mf/app2': typeof AppsMfApp2RouteWithChildren
-  '/apps/qiankun/$appId': typeof AppsQiankunAppIdRouteWithChildren
-  '/apps/qiankun': typeof AppsQiankunIndexRoute
-  '/apps/mf/app1/$': typeof AppsMfApp1SplatRoute
-  '/apps/mf/app2/$': typeof AppsMfApp2SplatRoute
-  '/apps/qiankun/$appId/$': typeof AppsQiankunAppIdSplatRoute
+  '/apps': typeof AppsRouteWithChildren
+  '/apps/$baseRoute': typeof AppsBaseRouteRouteWithChildren
+  '/apps/$baseRoute/$': typeof AppsBaseRouteSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/apps/': typeof AppsIndexRoute
-  '/apps/mf/app1': typeof AppsMfApp1RouteWithChildren
-  '/apps/mf/app2': typeof AppsMfApp2RouteWithChildren
-  '/apps/qiankun/$appId': typeof AppsQiankunAppIdRouteWithChildren
-  '/apps/qiankun/': typeof AppsQiankunIndexRoute
-  '/apps/mf/app1/$': typeof AppsMfApp1SplatRoute
-  '/apps/mf/app2/$': typeof AppsMfApp2SplatRoute
-  '/apps/qiankun/$appId/$': typeof AppsQiankunAppIdSplatRoute
+  '/apps': typeof AppsRouteWithChildren
+  '/apps/$baseRoute': typeof AppsBaseRouteRouteWithChildren
+  '/apps/$baseRoute/$': typeof AppsBaseRouteSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -114,51 +69,34 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/apps'
-    | '/apps/mf/app1'
-    | '/apps/mf/app2'
-    | '/apps/qiankun/$appId'
-    | '/apps/qiankun'
-    | '/apps/mf/app1/$'
-    | '/apps/mf/app2/$'
-    | '/apps/qiankun/$appId/$'
+    | '/apps/$baseRoute'
+    | '/apps/$baseRoute/$'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/apps'
-    | '/apps/mf/app1'
-    | '/apps/mf/app2'
-    | '/apps/qiankun/$appId'
-    | '/apps/qiankun'
-    | '/apps/mf/app1/$'
-    | '/apps/mf/app2/$'
-    | '/apps/qiankun/$appId/$'
+  to: '/' | '/about' | '/apps' | '/apps/$baseRoute' | '/apps/$baseRoute/$'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/apps/'
-    | '/apps/mf/app1'
-    | '/apps/mf/app2'
-    | '/apps/qiankun/$appId'
-    | '/apps/qiankun/'
-    | '/apps/mf/app1/$'
-    | '/apps/mf/app2/$'
-    | '/apps/qiankun/$appId/$'
+    | '/apps'
+    | '/apps/$baseRoute'
+    | '/apps/$baseRoute/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  AppsIndexRoute: typeof AppsIndexRoute
-  AppsMfApp1Route: typeof AppsMfApp1RouteWithChildren
-  AppsMfApp2Route: typeof AppsMfApp2RouteWithChildren
-  AppsQiankunAppIdRoute: typeof AppsQiankunAppIdRouteWithChildren
-  AppsQiankunIndexRoute: typeof AppsQiankunIndexRoute
+  AppsRoute: typeof AppsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/apps': {
+      id: '/apps'
+      path: '/apps'
+      fullPath: '/apps'
+      preLoaderRoute: typeof AppsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -173,108 +111,49 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/apps/': {
-      id: '/apps/'
-      path: '/apps'
-      fullPath: '/apps'
-      preLoaderRoute: typeof AppsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/apps/$baseRoute': {
+      id: '/apps/$baseRoute'
+      path: '/$baseRoute'
+      fullPath: '/apps/$baseRoute'
+      preLoaderRoute: typeof AppsBaseRouteRouteImport
+      parentRoute: typeof AppsRoute
     }
-    '/apps/qiankun/': {
-      id: '/apps/qiankun/'
-      path: '/apps/qiankun'
-      fullPath: '/apps/qiankun'
-      preLoaderRoute: typeof AppsQiankunIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/apps/qiankun/$appId': {
-      id: '/apps/qiankun/$appId'
-      path: '/apps/qiankun/$appId'
-      fullPath: '/apps/qiankun/$appId'
-      preLoaderRoute: typeof AppsQiankunAppIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/apps/mf/app2': {
-      id: '/apps/mf/app2'
-      path: '/apps/mf/app2'
-      fullPath: '/apps/mf/app2'
-      preLoaderRoute: typeof AppsMfApp2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/apps/mf/app1': {
-      id: '/apps/mf/app1'
-      path: '/apps/mf/app1'
-      fullPath: '/apps/mf/app1'
-      preLoaderRoute: typeof AppsMfApp1RouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/apps/qiankun/$appId/$': {
-      id: '/apps/qiankun/$appId/$'
+    '/apps/$baseRoute/$': {
+      id: '/apps/$baseRoute/$'
       path: '/$'
-      fullPath: '/apps/qiankun/$appId/$'
-      preLoaderRoute: typeof AppsQiankunAppIdSplatRouteImport
-      parentRoute: typeof AppsQiankunAppIdRoute
-    }
-    '/apps/mf/app2/$': {
-      id: '/apps/mf/app2/$'
-      path: '/$'
-      fullPath: '/apps/mf/app2/$'
-      preLoaderRoute: typeof AppsMfApp2SplatRouteImport
-      parentRoute: typeof AppsMfApp2Route
-    }
-    '/apps/mf/app1/$': {
-      id: '/apps/mf/app1/$'
-      path: '/$'
-      fullPath: '/apps/mf/app1/$'
-      preLoaderRoute: typeof AppsMfApp1SplatRouteImport
-      parentRoute: typeof AppsMfApp1Route
+      fullPath: '/apps/$baseRoute/$'
+      preLoaderRoute: typeof AppsBaseRouteSplatRouteImport
+      parentRoute: typeof AppsBaseRouteRoute
     }
   }
 }
 
-interface AppsMfApp1RouteChildren {
-  AppsMfApp1SplatRoute: typeof AppsMfApp1SplatRoute
+interface AppsBaseRouteRouteChildren {
+  AppsBaseRouteSplatRoute: typeof AppsBaseRouteSplatRoute
 }
 
-const AppsMfApp1RouteChildren: AppsMfApp1RouteChildren = {
-  AppsMfApp1SplatRoute: AppsMfApp1SplatRoute,
+const AppsBaseRouteRouteChildren: AppsBaseRouteRouteChildren = {
+  AppsBaseRouteSplatRoute: AppsBaseRouteSplatRoute,
 }
 
-const AppsMfApp1RouteWithChildren = AppsMfApp1Route._addFileChildren(
-  AppsMfApp1RouteChildren,
+const AppsBaseRouteRouteWithChildren = AppsBaseRouteRoute._addFileChildren(
+  AppsBaseRouteRouteChildren,
 )
 
-interface AppsMfApp2RouteChildren {
-  AppsMfApp2SplatRoute: typeof AppsMfApp2SplatRoute
+interface AppsRouteChildren {
+  AppsBaseRouteRoute: typeof AppsBaseRouteRouteWithChildren
 }
 
-const AppsMfApp2RouteChildren: AppsMfApp2RouteChildren = {
-  AppsMfApp2SplatRoute: AppsMfApp2SplatRoute,
+const AppsRouteChildren: AppsRouteChildren = {
+  AppsBaseRouteRoute: AppsBaseRouteRouteWithChildren,
 }
 
-const AppsMfApp2RouteWithChildren = AppsMfApp2Route._addFileChildren(
-  AppsMfApp2RouteChildren,
-)
-
-interface AppsQiankunAppIdRouteChildren {
-  AppsQiankunAppIdSplatRoute: typeof AppsQiankunAppIdSplatRoute
-}
-
-const AppsQiankunAppIdRouteChildren: AppsQiankunAppIdRouteChildren = {
-  AppsQiankunAppIdSplatRoute: AppsQiankunAppIdSplatRoute,
-}
-
-const AppsQiankunAppIdRouteWithChildren =
-  AppsQiankunAppIdRoute._addFileChildren(AppsQiankunAppIdRouteChildren)
+const AppsRouteWithChildren = AppsRoute._addFileChildren(AppsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  AppsIndexRoute: AppsIndexRoute,
-  AppsMfApp1Route: AppsMfApp1RouteWithChildren,
-  AppsMfApp2Route: AppsMfApp2RouteWithChildren,
-  AppsQiankunAppIdRoute: AppsQiankunAppIdRouteWithChildren,
-  AppsQiankunIndexRoute: AppsQiankunIndexRoute,
+  AppsRoute: AppsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

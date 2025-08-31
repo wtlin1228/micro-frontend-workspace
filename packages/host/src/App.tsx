@@ -1,9 +1,12 @@
 import { RouterProvider } from '@tanstack/react-router';
+import * as React from 'react';
+import { registerQiankunApps } from './app-loaders';
 import { router } from './router';
-import { useRegisterQiankunApps } from './components/register-qiankun-apps';
 
 const App = () => {
-  useRegisterQiankunApps();
+  React.useEffect(() => {
+    registerQiankunApps();
+  }, []);
 
   return <RouterProvider router={router} />;
 };
