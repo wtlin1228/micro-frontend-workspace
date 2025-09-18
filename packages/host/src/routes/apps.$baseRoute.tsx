@@ -26,6 +26,8 @@ export const Route = createFileRoute('/apps/$baseRoute')({
   component: RouteComponent,
 });
 
+const Noop = () => null;
+
 function RouteComponent() {
   const remote = useLoaderData({ from: Route.id });
 
@@ -34,17 +36,18 @@ function RouteComponent() {
     select: (params) => params.baseRoute,
   });
 
+  const RootComponent = React.useMemo(() => {
+    if (!remote) {
+      return Noop;
+    }
+    return React.lazy(async () => {
+      return { default: React.memo(await remote.RootComponent) };
+    });
+  }, [remote]);
+
   if (!remote) {
     return null;
   }
-
-  const RootComponent = React.useMemo(
-    () =>
-      React.lazy(async () => {
-        return { default: React.memo(await remote.RootComponent) };
-      }),
-    [remote.RootComponent]
-  );
 
   return (
     <React.Suspense fallback={<div>Loading {baseRoute} ...</div>}>
