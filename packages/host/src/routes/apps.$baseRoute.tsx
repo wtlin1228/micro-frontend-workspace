@@ -38,9 +38,13 @@ function RouteComponent() {
     return null;
   }
 
-  const RootComponent = React.lazy(async () => {
-    return { default: await remote.RootComponent };
-  });
+  const RootComponent = React.useMemo(
+    () =>
+      React.lazy(async () => {
+        return { default: React.memo(await remote.RootComponent) };
+      }),
+    [remote.RootComponent]
+  );
 
   return (
     <React.Suspense fallback={<div>Loading {baseRoute} ...</div>}>
